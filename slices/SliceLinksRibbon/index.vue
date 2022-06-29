@@ -41,14 +41,14 @@ export default {
   props: getSliceComponentProps(['slice', 'index', 'slices', 'context']),
   mounted () {
     gsap.to(this.$refs.items, {
-      x: `${(this.$refs.items.offsetWidth / 2) * -1}px`,
+      x: `${(this.$refs.items.offsetWidth / 4) * -1}px`,
       scrollTrigger: {
         trigger: this.$refs.items,
         pin: false,
         scrub: 1,
         onUpdate: (d) => {
           gsap.to(this.$refs.items, {
-            duration: 0.5,
+            duration: 0.75,
             '--wght': Math.abs(this.clamp(d.getVelocity()))
           })
         }
