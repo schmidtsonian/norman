@@ -2,7 +2,9 @@
   <main ref="mainWrapper">
     <div ref="mainContainer">
       <header>the Header</header>
+      <br><br>
       <Nuxt />
+      <br><br>
       <div>the Footer</div>
     </div>
   </main>
