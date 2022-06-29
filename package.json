@@ -14,8 +14,8 @@
     "slicemachine": "start-slicemachine"
   },
   "engines": {
-    "node": "v14.17.6",
-    "yarn": "v1.22.18"
+    "node": "v14.19.3",
+    "yarn": "v1.22.17"
   },
   "dependencies": {
     "@nuxtjs/prismic": "^1.4.2",
