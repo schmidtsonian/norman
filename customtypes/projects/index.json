@@ -1,0 +1,65 @@
+{
+  "id": "projects",
+  "label": "Projects",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "Uid",
+          "placeholder": ""
+        }
+      },
+      "headline": {
+        "type": "Text",
+        "config": {
+          "label": "Headline",
+          "placeholder": ""
+        }
+      },
+      "description": {
+        "type": "Text",
+        "config": {
+          "label": "Description",
+          "placeholder": ""
+        }
+      },
+      "image": {
+        "type": "Image",
+        "config": {
+          "label": "Image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "slice_links_ribbon": {
+              "type": "SharedSlice"
+            },
+            "slice_headline": {
+              "type": "SharedSlice"
+            },
+            "slice_metas": {
+              "type": "SharedSlice"
+            },
+            "slice_image": {
+              "type": "SharedSlice"
+            },
+            "slice_image_w_content": {
+              "type": "SharedSlice"
+            },
+            "slice_video": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "_cts": {
+    "projects": {
+      "metas": {
+        "roleDescription": {
+          "config": {
+            "patternType": "HEADING",
+            "blocks": 1
+          }
+        },
+        "creditsDescription": {
+          "config": {
+            "patternType": "PARAGRAPH",
+            "blocks": 1
+          }
+        }
+      },
+      "metasDescription": {
+        "config": {
+          "patternType": "HEADING",
+          "blocks": 1
+        }
+      },
+      "image": {
+        "content": "https://images.unsplash.com/photo-1587411768065-fd9b9dd13359"
+      }
+    }
+  },
+  "slices": {
+    "Test": {},
+    "SliceLinksRibbon": {
+      "default": {
+        "primary": {}
+      }
+    },
+    "SliceMetas": {
+      "default": {
+        "primary": {
+          "description": {
+            "config": {
+              "patternType": "HEADING",
+              "blocks": 1
+            }
+          }
+        },
+        "items": {
+          "description": {
+            "config": {
+              "patternType": "HEADING",
+              "blocks": 1
+            }
+          }
+        }
+      }
+    },
+    "SliceHeadline": {
+      "default": {
+        "primary": {
+          "headline": {
+            "config": {
+              "patternType": "HEADING",
+              "blocks": 1
+            }
+          }
+        }
+      }
+    },
+    "Image": {},
+    "SliceImage": {
+      "default": {
+        "primary": {}
+      },
+      "labelCentered": {
+        "primary": {}
+      },
+      "fullViewportWidth": {
+        "primary": {}
+      }
+    },
+    "SliceImageWContent": {
+      "default": {
+        "primary": {},
+        "items": {
+          "content": {
+            "config": {
+              "patternType": "PARAGRAPH",
+              "blocks": 1
+            }
+          }
+        }
+      }
+    },
+    "SliceVideo": {
+      "default": {
+        "primary": {}
+      }
+    }
+  }
+}

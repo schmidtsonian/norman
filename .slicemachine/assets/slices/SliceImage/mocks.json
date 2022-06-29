@@ -1,0 +1,74 @@
+[
+  {
+    "variation": "default",
+    "name": "Default",
+    "slice_type": "slice_image",
+    "items": [],
+    "primary": {
+      "label": "strategize vertical eyeballs",
+      "image": {
+        "dimensions": {
+          "width": 900,
+          "height": 500
+        },
+        "alt": "Placeholder image",
+        "copyright": null,
+        "url": "https://images.unsplash.com/photo-1493119508027-2b584f234d6c?w=900&h=500&fit=crop"
+      }
+    }
+  },
+  {
+    "variation": "labelCentered",
+    "name": "Label Centered",
+    "slice_type": "slice_image",
+    "items": [],
+    "primary": {
+      "label": "innovate out-of-the-box solutions",
+      "image": {
+        "dimensions": {
+          "width": 900,
+          "height": 500
+        },
+        "alt": "Placeholder image",
+        "copyright": null,
+        "url": "https://images.unsplash.com/photo-1589652717521-10c0d092dea9?w=900&h=500&fit=crop"
+      }
+    }
+  },
+  {
+    "variation": "fullViewportWidth",
+    "name": "Full Viewport Width",
+    "slice_type": "slice_image",
+    "items": [],
+    "primary": {
+      "label": "drive rich deliverables",
+      "image": {
+        "dimensions": {
+          "width": 900,
+          "height": 500
+        },
+        "alt": "Placeholder image",
+        "copyright": null,
+        "url": "https://images.unsplash.com/photo-1587905069134-008460d7a636?w=900&h=500&fit=crop"
+      }
+    }
+  },
+  {
+    "variation": "alignRight",
+    "name": "Align right",
+    "slice_type": "slice_image",
+    "items": [],
+    "primary": {
+      "label": "visualize proactive initiatives",
+      "image": {
+        "dimensions": {
+          "width": 900,
+          "height": 500
+        },
+        "alt": "Placeholder image",
+        "copyright": null,
+        "url": "https://images.unsplash.com/photo-1586952518485-11b180e92764?w=900&h=500&fit=crop"
+      }
+    }
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "variation": "default",
+    "name": "Default",
+    "slice_type": "slice_headline",
+    "items": [],
+    "primary": {
+      "topLine": "seize collaborative applications",
+      "headline": [
+        {
+          "type": "heading2",
+          "text": "Productize granular methodologies",
+          "spans": []
+        }
+      ]
+    }
+  }
+]
