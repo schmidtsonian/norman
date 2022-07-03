@@ -59,7 +59,7 @@ export default {
   methods: {
     clamp: gsap.utils.clamp(200, 900),
     mouseover: (i) => {
-      console.log(i)
+      // console.log(i)
     },
     mouseleave: (el) => {
 

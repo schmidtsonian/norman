@@ -69,6 +69,9 @@ export default {
       content: this.$refs.mainContainer,
       effects: true
     })
+  },
+  updated () {
+    console.log(1)
   }
 }
 </script>

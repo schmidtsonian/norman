@@ -13,6 +13,18 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
+import { gsap } from 'gsap'
+// eslint-disable-next-line no-unused-vars
+import { ScrollSmoother } from 'gsap/ScrollSmoother'
+// eslint-disable-next-line no-unused-vars
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+// eslint-disable-next-line no-unused-vars
+
+if (process.client) {
+  gsap.registerPlugin(ScrollSmoother, ScrollTrigger)
+}
+
 export default {
   name: 'HomePage',
   layout: 'base',
@@ -22,11 +34,14 @@ export default {
       $prismic.predicates.at('document.type', 'projects')
     )
     if (document) {
-      console.log(document)
       return { document }
     } else {
       error({ statusCode: 404, message: 'Page not found' })
     }
+  },
+  mounted () {
+    ScrollTrigger.refresh()
+    ScrollSmoother.refresh()
   }
 }
 </script>

@@ -21,10 +21,28 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
+import { gsap } from 'gsap'
+// eslint-disable-next-line no-unused-vars
+import { ScrollSmoother } from 'gsap/ScrollSmoother'
+// eslint-disable-next-line no-unused-vars
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+// eslint-disable-next-line no-unused-vars
 import { components } from '~/slices'
 
+if (process.client) {
+  gsap.registerPlugin(ScrollSmoother, ScrollTrigger)
+}
+
 export default {
+  name: 'ProjectsDetail',
   layout: 'base',
+  // middleware () {
+  //   console.log('wt')
+  // },
+  // transition (to, from) {
+  //   console.log(to)
+  // },
   async asyncData ({ $prismic, params, error }) {
     const document = await $prismic.api.getByUID('projects', params.uid)
 
@@ -36,8 +54,11 @@ export default {
   },
   data: () => {
     return { components }
+  },
+  mounted () {
+    ScrollTrigger.refresh()
+    ScrollSmoother.refresh()
   }
-
 }
 </script>
 

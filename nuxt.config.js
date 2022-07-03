@@ -70,5 +70,27 @@ export default {
       'vue-slicezone',
       'gsap'
     ]
+  },
+  pageTransition: {
+    beforeEnter (el) {
+      console.log('beforeEnter Enter')
+    },
+    enter (el, done) {
+      console.log('enter')
+      done()
+    },
+    afterEnter (el) {
+      console.log('afterEnter Leave')
+    },
+    beforeLeave (el) {
+      console.log('beforeLeave Leave')
+    },
+    afterLeave (el) {
+      console.log('afterLeave Leave')
+    },
+    leave (el, done) {
+      console.log(' leave')
+      done(1)
+    }
   }
 }
