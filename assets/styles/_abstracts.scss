@@ -13,18 +13,22 @@ $grid-breakpoints: (
 
 $rem-baseline: 16;
 
+$z-index--layout: 100;
+
 @mixin breakpoint-up($size) {
   @media all and (min-width: $size) {
     @content;
   }
 }
 
-@function breakpoint($name) {
-  @return map-get($grid-breakpoints, $name);
+@mixin has-hover() {
+  @media (any-hover: hover) {
+    @content;
+  }
 }
 
 @function bp($name) {
-  @return breakpoint($name);
+  @return map-get($grid-breakpoints, $name);
 }
 
 @function stripUnit($value) {

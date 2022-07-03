@@ -13,6 +13,7 @@
             :title="item.title"
             target="_lank"
             class="s-links-ribbon__item-a"
+            @mouseover="mouseover(i)"
           >
             <span>{{ item.title }} —  </span>
           </PrismicLink>
@@ -56,7 +57,13 @@ export default {
     })
   },
   methods: {
-    clamp: gsap.utils.clamp(200, 900)
+    clamp: gsap.utils.clamp(200, 900),
+    mouseover: (i) => {
+      console.log(i)
+    },
+    mouseleave: (el) => {
+
+    }
   }
 }
 </script>
