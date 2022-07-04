@@ -52,8 +52,8 @@
     <CornerCmyk class="l-corner--left-bottom" />
     <CornerCmyk class="l-corner--right-bottom" />
 
-    <CircleXy class="l-circle-xy--left l-circle-xy--left-c" />
-    <CircleXy class="l-circle-xy--right l-circle-xy--left-k" />
+    <CircleXy class="l-circle-xy l-circle-xy--left" />
+    <CircleXy class="l-circle-xy l-circle-xy--right" />
   </main>
 </template>
 
@@ -90,12 +90,15 @@ export default {
           '--cc': `${gsap.utils.clamp(0, 1.6, velocity)}`,
           '--cm': `${gsap.utils.clamp(0, 2.2, velocity)}`,
           '--cy': `${gsap.utils.clamp(0, 2.8, velocity)}`,
-          '--ck': `${gsap.utils.clamp(0, 1, velocity)}`
+          '--ck': `${gsap.utils.clamp(0, 1, velocity)}`,
+
+          '--yy': `${gsap.utils.clamp(-15, 15, d.getVelocity() * 0.01)}px`
         })
       },
       onStop: () => {
         gsap.to(this.$refs.mainWrapper, {
           duration: 0.75,
+          ease: Circ.easeOut,
           '--c': '0px',
           '--m': '0px',
           '--y': '0px',
@@ -104,7 +107,8 @@ export default {
           '--cc': '0',
           '--cm': '0',
           '--cy': '0',
-          '--ck': '0'
+          '--ck': '0',
+          '--yy': '0px'
         })
       }
     })
@@ -202,6 +206,10 @@ export default {
   .l-corner--right-bottom,
   .l-circle-xy--right {
     right: rem(25);
+  }
+
+  .l-circle-xy {
+    transform: translateY(var(--yy));
   }
 
   @include breakpoint-up(bp(sm)) {

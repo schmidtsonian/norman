@@ -10,7 +10,7 @@
         </div>
 
         <div class="col-18 col-md-9 col-lg-6 offset-lg-1 col-xl2-6 offset-xl2-2 s-metas__col-metas">
-          <div data-speed="0.75">
+          <div>
             <div
               v-for="(item, i) in slice.items"
               :key="`slice-item-${i}`"

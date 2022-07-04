@@ -8,14 +8,16 @@
           class="s-links-ribbon__item"
         >
           <PrismicLink
-            ref="item"
+            ref="link"
             :field="item.link"
             :title="item.title"
             target="_lank"
             class="s-links-ribbon__item-a"
             @mouseover="mouseover(i)"
+            @mouseleave="mouseleave(i)"
           >
-            <span>{{ item.title }} —  </span>
+            <span ref="linkS">{{ item.title }}</span>
+            <span> - </span>
           </PrismicLink>
         </div>
       </div>
@@ -58,11 +60,21 @@ export default {
   },
   methods: {
     clamp: gsap.utils.clamp(200, 900),
-    mouseover: (i) => {
-      // console.log(i)
+    mouseover (i) {
+      gsap.set(this.$refs.linkS[i], { css: { 'font-variation-settings': '"wdth" 100, "wght" var(--wght-i), "CNTR" 0' } })
+      gsap.to(this.$refs.linkS[i], {
+        duration: 0.25,
+        '--wght-i': '900'
+      })
     },
-    mouseleave: (el) => {
-
+    mouseleave (i) {
+      gsap.to(this.$refs.linkS[i], {
+        duration: 0.25,
+        '--wght-i': '200',
+        onComplete: () => {
+          gsap.set(this.$refs.linkS[i], { css: { 'font-variation-settings': 'unset' } })
+        }
+      })
     }
   }
 }
@@ -97,6 +109,8 @@ export default {
 
   .s-links-ribbon__item-a {
     display: inline-block;
+    --wght-i: 200;
+    // font-variation-settings: "wdth" 100, "wght" var(--wght-i), "CNTR" 0;
   }
 
   @include breakpoint-up(bp(md)) {
