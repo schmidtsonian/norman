@@ -27,7 +27,7 @@
 
 <script>
 // eslint-disable-next-line no-unused-vars
-import { gsap } from 'gsap'
+import { gsap, Cubic } from 'gsap'
 // eslint-disable-next-line no-unused-vars
 import { ScrollSmoother } from 'gsap/ScrollSmoother'
 // eslint-disable-next-line no-unused-vars
@@ -64,6 +64,7 @@ export default {
       gsap.set(this.$refs.linkS[i], { css: { 'font-variation-settings': '"wdth" 100, "wght" var(--wght-i), "CNTR" 0' } })
       gsap.to(this.$refs.linkS[i], {
         duration: 0.25,
+        ease: Cubic.easeOut,
         '--wght-i': '900'
       })
     },
@@ -71,6 +72,7 @@ export default {
       gsap.to(this.$refs.linkS[i], {
         duration: 0.25,
         '--wght-i': '200',
+        ease: Cubic.easeOut,
         onComplete: () => {
           gsap.set(this.$refs.linkS[i], { css: { 'font-variation-settings': 'unset' } })
         }

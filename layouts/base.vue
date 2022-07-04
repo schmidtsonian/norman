@@ -79,6 +79,7 @@ export default {
       effects: true,
       onUpdate: (d) => {
         const velocity = Math.abs(d.getVelocity()) * 0.01
+        const ampliation = Math.abs(d.getVelocity()) * 0.002
         gsap.to(this.$refs.mainWrapper, {
           duration: 0.75,
           ease: Circ.easeOut,
@@ -87,12 +88,12 @@ export default {
           '--y': `${gsap.utils.clamp(0, 18, velocity)}px`,
           '--k': `${gsap.utils.clamp(0, 24, velocity)}px`,
 
-          '--cc': `${gsap.utils.clamp(0, 1.6, velocity)}`,
-          '--cm': `${gsap.utils.clamp(0, 2.2, velocity)}`,
-          '--cy': `${gsap.utils.clamp(0, 2.8, velocity)}`,
-          '--ck': `${gsap.utils.clamp(0, 1, velocity)}`,
+          '--cc': `${gsap.utils.clamp(0, 1.6, ampliation)}`,
+          '--cm': `${gsap.utils.clamp(0, 2.2, ampliation)}`,
+          '--cy': `${gsap.utils.clamp(0, 2.8, ampliation)}`,
+          '--ck': `${gsap.utils.clamp(0, 1, ampliation)}`,
 
-          '--yy': `${gsap.utils.clamp(-15, 15, d.getVelocity() * 0.01)}px`
+          '--yy': `${gsap.utils.clamp(-65, 65, d.getVelocity() * 0.004)}px`
         })
       },
       onStop: () => {
@@ -157,21 +158,6 @@ export default {
     width: 117px;
     height: 22px;
     display: none;
-  }
-
-  .l-corner {
-    position: fixed;
-
-    &, span {
-      display: block;
-      width: rem(12);
-      height: rem(12);
-    }
-    span {
-      position: absolute;
-      border-right: 2px solid;
-      border-bottom: 2px solid;
-    }
   }
 
   .l-corner--right-top {

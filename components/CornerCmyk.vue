@@ -25,8 +25,8 @@ export default {
     }
     span {
       position: absolute;
-      border-right: 2px solid;
-      border-bottom: 2px solid;
+      border-right: 1px solid;
+      border-bottom: 1px solid;
     }
   }
 
@@ -48,5 +48,14 @@ export default {
   .a-corner-k {
     border-color: black !important;
     transform: translateX(var(--k)) translateY(var(--k));
+  }
+
+  @include breakpoint-up(bp(md)) {
+    .a-corner {
+      span {
+        border-right-width: 2px;
+        border-bottom-width: 2px;
+      }
+    }
   }
 </style>

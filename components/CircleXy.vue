@@ -23,8 +23,8 @@ export default {
 
 <style lang="scss">
   .a-xy {
-    width: rem(21);
-    height: rem(21);
+    width: rem(25);
+    height: rem(25);
     position: fixed;
     top: 0;
     bottom: 0;
@@ -50,14 +50,14 @@ export default {
   }
 
   .a-xy__border {
-    width: rem(15);
-    height: rem(15);
-    border: 2px solid;
+    width: rem(21);
+    height: rem(21);
+    border: 1px solid;
   }
 
   .a-xy__circle {
-    width: rem(7);
-    height: rem(7);
+    width: rem(13);
+    height: rem(13);
   }
 
   .a-xy__circle--w {
@@ -91,11 +91,11 @@ export default {
 
   .a-xy__x {
     width: 100%;
-    height: 2px;
+    height: 1px;
   }
 
   .a-xy__y {
-    width: 2px;
+    width: 1px;
     height: 100%;
   }
 
@@ -108,11 +108,20 @@ export default {
     .a-xy__border {
       width: rem(30);
       height: rem(30);
+      border: 1px solid;
     }
 
     .a-xy__circle {
       width: rem(18);
       height: rem(18);
+    }
+
+    .a-xy__x {
+      height: 2px;
+    }
+
+    .a-xy__y {
+      width: 2px;
     }
   }
 
