@@ -38,3 +38,5 @@ $z-index--layout: 100;
 @function rem($pxValue) {
   @return #{math.div(stripUnit($pxValue), stripUnit($rem-baseline))}rem;
 }
+
+$color--black: #000;

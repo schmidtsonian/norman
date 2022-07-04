@@ -46,13 +46,21 @@
         <path d="M97.9,21.4c2.3,0,2.9-0.4,2.9-1.9V2C100.1,1.2,99,0.8,98,1V0.4h4.9l10.5,17.7V2.9 c0-1.6-0.6-1.9-2.9-1.9V0.4h6.9V1c-2.3,0-2.9,0.4-2.9,1.9V20l1.2,2h-3L101.8,3.7l0.1,15.7c0,1.6,0.6,1.9,2.9,1.9v0.5h-6.9L97.9,21.4 z" />
       </svg>
     </footer>
+
+    <CornerCmyk class="l-corner--left-top" />
+    <CornerCmyk class="l-corner--right-top" />
+    <CornerCmyk class="l-corner--left-bottom" />
+    <CornerCmyk class="l-corner--right-bottom" />
+
+    <CircleXy class="l-circle-xy--left l-circle-xy--left-c" />
+    <CircleXy class="l-circle-xy--right l-circle-xy--left-k" />
   </main>
 </template>
 
 <script>
 
 // eslint-disable-next-line no-unused-vars
-import { gsap } from 'gsap'
+import { gsap, Circ } from 'gsap'
 // eslint-disable-next-line no-unused-vars
 import { ScrollSmoother } from 'gsap/ScrollSmoother'
 // eslint-disable-next-line no-unused-vars
@@ -65,13 +73,41 @@ export default {
   name: 'LayoutBase',
   mounted () {
     ScrollSmoother.create({
+      smooth: 1,
       wrapper: this.$refs.mainWrapper,
       content: this.$refs.mainContainer,
-      effects: true
+      effects: true,
+      onUpdate: (d) => {
+        const velocity = Math.abs(d.getVelocity()) * 0.01
+        gsap.to(this.$refs.mainWrapper, {
+          duration: 0.75,
+          ease: Circ.easeOut,
+          '--c': `${gsap.utils.clamp(0, 6, velocity)}px`,
+          '--m': `${gsap.utils.clamp(0, 12, velocity)}px`,
+          '--y': `${gsap.utils.clamp(0, 18, velocity)}px`,
+          '--k': `${gsap.utils.clamp(0, 24, velocity)}px`,
+
+          '--cc': `${gsap.utils.clamp(0, 1.6, velocity)}`,
+          '--cm': `${gsap.utils.clamp(0, 2.2, velocity)}`,
+          '--cy': `${gsap.utils.clamp(0, 2.8, velocity)}`,
+          '--ck': `${gsap.utils.clamp(0, 1, velocity)}`
+        })
+      },
+      onStop: () => {
+        gsap.to(this.$refs.mainWrapper, {
+          duration: 0.75,
+          '--c': '0px',
+          '--m': '0px',
+          '--y': '0px',
+          '--k': '0px',
+
+          '--cc': '0',
+          '--cm': '0',
+          '--cy': '0',
+          '--ck': '0'
+        })
+      }
     })
-  },
-  updated () {
-    console.log(1)
   }
 }
 </script>
@@ -81,6 +117,7 @@ export default {
   .l-footer {
     z-index: $z-index--layout;
     position: relative;
+    width: 100vw;
   }
 
   .l-header {
@@ -104,7 +141,7 @@ export default {
   }
 
   .l-header__l--d {
-    transform: translateX(ren(-122));
+    transform: translateX(rem(-122));
   }
 
   .l-footer {
@@ -116,6 +153,55 @@ export default {
     width: 117px;
     height: 22px;
     display: none;
+  }
+
+  .l-corner {
+    position: fixed;
+
+    &, span {
+      display: block;
+      width: rem(12);
+      height: rem(12);
+    }
+    span {
+      position: absolute;
+      border-right: 2px solid;
+      border-bottom: 2px solid;
+    }
+  }
+
+  .l-corner--right-top {
+    transform: rotate(90deg);
+  }
+
+  .l-corner--right-bottom {
+    transform: rotate(180deg);
+  }
+
+  .l-corner--left-bottom {
+    transform: rotate(270deg);
+  }
+
+  .l-corner--left-top,
+  .l-corner--right-top {
+    top: rem(25)
+  }
+
+  .l-corner--left-bottom,
+  .l-corner--right-bottom {
+    bottom: rem(25)
+  }
+
+  .l-corner--left-top,
+  .l-corner--left-bottom,
+  .l-circle-xy--left {
+    left: rem(25);
+  }
+
+  .l-corner--right-top,
+  .l-corner--right-bottom,
+  .l-circle-xy--right {
+    right: rem(25);
   }
 
   @include breakpoint-up(bp(sm)) {
@@ -138,12 +224,31 @@ export default {
       padding-top: rem(30);
     }
 
-    .l-footer {
-      bottom: rem(30);
-    }
-
     .l-footer__logo {
       display: block;
+    }
+
+    .l-corner--left-top,
+    .l-corner--right-top {
+      top: rem(30)
+    }
+
+    .l-footer,
+    .l-corner--left-bottom,
+    .l-corner--right-bottom {
+      bottom: rem(30)
+    }
+
+    .l-corner--left-top,
+    .l-corner--left-bottom,
+    .l-circle-xy--left {
+      left: rem(30);
+    }
+
+    .l-corner--right-top,
+    .l-corner--right-bottom
+    .l-circle-xy--right {
+      right: rem(30);
     }
   }
 
@@ -152,8 +257,34 @@ export default {
       padding-top: rem(40);
     }
 
-    .l-footer {
-      bottom: rem(40);
+    .l-corner {
+      &, span {
+        width: rem(18);
+        height: rem(18);
+      }
+    }
+
+    .l-corner--left-top,
+    .l-corner--right-top {
+      top: rem(25)
+    }
+
+    .l-footer,
+    .l-corner--left-bottom,
+    .l-corner--right-bottom {
+      bottom: rem(25)
+    }
+
+    .l-corner--left-top,
+    .l-corner--left-bottom,
+    .l-circle-xy--left {
+      left: rem(25);
+    }
+
+    .l-corner--right-top,
+    .l-corner--right-bottom,
+    .l-circle-xy--right {
+      right: rem(25);
     }
   }
 </style>

@@ -12,7 +12,9 @@
         <div class="row">
           <div class="col-18 col-xl2-10 offset-xl2-8">
             <ResponsiveImage :v-if="slice.primary.image" :image="slice.primary.image" />
-            <p :v-if="slice.primary.label" class="s-image__label">{{ slice.primary.label }}</p>
+            <p :v-if="slice.primary.label" class="s-image__label">
+              {{ slice.primary.label }}
+            </p>
           </div>
         </div>
       </div>

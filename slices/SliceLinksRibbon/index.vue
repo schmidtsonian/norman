@@ -50,7 +50,7 @@ export default {
         onUpdate: (d) => {
           gsap.to(this.$refs.items, {
             duration: 0.75,
-            '--wght': Math.abs(this.clamp(d.getVelocity()))
+            '--wght': this.clamp(Math.abs(d.getVelocity()))
           })
         }
       }
