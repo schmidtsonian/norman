@@ -10,7 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   width: 100vw;
   overflow-x: hidden;
-  font-family: 'Atacama Beta VAR';
+  font-family: $ff-primary;
   font-weight: 300;
   font-size: rem(12);
   letter-spacing: 0.01em;
@@ -36,11 +36,16 @@ a {
 }
 
 .h-label {
-  font-family: 'Baikal VAR';
-  font-weight: 500;
-  letter-spacing: 0.01em;
+  font-family: $ff-titles;
+  // font-weight: 500;
+  // letter-spacing: 0.01em;
   line-height: 2em;
   padding-bottom: rem(20);
+}
+
+.h-font-logo {
+  font-family: $ff-nd-logo;
+  letter-spacing: 0.1em;
 }
 
 .h-p {

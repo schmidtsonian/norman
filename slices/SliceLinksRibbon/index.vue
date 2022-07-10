@@ -7,18 +7,7 @@
           :key="`slice-item-${i}`"
           class="s-links-ribbon__item"
         >
-          <PrismicLink
-            ref="link"
-            :field="item.link"
-            :title="item.title"
-            target="_lank"
-            class="s-links-ribbon__item-a"
-            @mouseover="mouseover(i)"
-            @mouseleave="mouseleave(i)"
-          >
-            <span ref="linkS">{{ item.title }}</span>
-            <span> - </span>
-          </PrismicLink>
+          <RibbonLink :link="item.link" :title="item.title" />
         </div>
       </div>
     </div>
