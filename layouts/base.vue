@@ -147,8 +147,8 @@ export default {
 
   .l-footer__logo {
     text-align: center;
-    font-size: rem(25);
-    width: rem(117);
+    font-size: rem(28);
+    width: rem(128);
     height: rem(26);
     display: none;
   }

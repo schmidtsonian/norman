@@ -24,6 +24,7 @@ export default {
 
 <style lang="scss">
 .a-image {
+  width: 100%;
   position: relative;
   display: block;
   img {
