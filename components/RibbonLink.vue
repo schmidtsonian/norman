@@ -4,14 +4,18 @@
     :field="link"
     :title="title"
     target="_lank"
-    class="a-ribbon-link"
+    class="a-rb"
     @mousemove="onMouseMove"
     @mouseleave="onMouseLeave"
   >
-    <span ref="linkText" class="a-ribbon-link__text">
-      <span ref="linkS" class="a-ribbon-link__text-inner a-ribbon-link__text-inner--shadow">{{ title }}</span>
-      <span class="a-ribbon-link__text-inner a-ribbon-link__text-inner--spacer">{{ title }}</span>
-      <span class="a-ribbon-link__s"> - </span>
+    <span ref="linkText" class="a-rb__text">
+      <span ref="linkS" class="a-rb__text-inner a-rb__text-inner--floated">
+        <span>{{ title }}</span>
+      </span>
+      <span class="a-rb__text-inner a-rb__text-inner--spacer">
+        <span>{{ title }}</span>
+      </span>
+      <span class="a-rb__s">—</span>
     </span>
   </PrismicLink>
 </template>
@@ -50,6 +54,7 @@ export default {
         duration: 0.25,
         ease: Cubic.easeOut,
         '--wght-i': 200,
+        '--scale-x': 0,
         onComplete: () => {
           gsap.set(this.$refs.linkS, { css: { 'font-variation-settings': 'unset' } })
         }
@@ -72,7 +77,8 @@ export default {
       gsap.to(this.$refs.linkS, {
         duration: 0.25,
         ease: Cubic.easeOut,
-        '--wght-i': gsap.utils.clamp(200, 900, 900 - distanceSquared)
+        '--wght-i': gsap.utils.clamp(200, 900, 900 - distanceSquared),
+        '--scale-x': 1 - pX * 0.01
       })
     }
   }
@@ -85,59 +91,75 @@ export default {
   display: inline-block;
   // font-variation-settings: "wdth" 100, "wght" var(--wght-i), "CNTR" 0;
 }
-.a-ribbon-link {
+.a-rb {
   display: inline-block;
   padding: 1em 0;
   text-align: center;
   position: relative;
 }
 
-.a-ribbon-link__text {
+.a-rb__text {
   position: relative;
   left: 0;
   display: inline-block;
 }
 
-.a-ribbon-link__text-inner {
+.a-rb__text-inner {
   position: relative;
   font-size: rem(60);
+  span {
+    position: relative;
+    display: inline-block;
+  }
 }
 
-.a-ribbon-link__text-inner--shadow {
+.a-rb__text-inner--floated {
   position: absolute;
   width: 100%;
   --wght-i: 200;
-  font-size: rem(50);
+  --scale-x: 0;
+  font-size: rem(55);
+  // span {
+  //   &:after {
+  //     content: '';
+  //     position: absolute;
+  //     width: 100%;
+  //     height: 0.05em;
+  //     left: 0;
+  //     bottom: 0.15em;
+  //     background-color: $color--black;
+  //     // transform: scaleX(var(--scale-x))
+  //   }
+  // }
 }
 
-.a-ribbon-link__text-inner--spacer {
+.a-rb__text-inner--spacer {
   visibility: hidden;
   opacity: 0;
 }
 
-.a-ribbon-link__s {
+.a-rb__s {
   position: relative;
-  transform: translateX(100%);
+  transform: translateX(70%);
   display: inline-block;
 }
 
 @include breakpoint-up(bp(md)) {
-  .a-ribbon-link__text-inner {
+  .a-rb__text-inner {
     font-size: rem(90);
   }
-}
-
-.a-ribbon-link__text-inner--shadow {
-  font-size: rem(80);
+  .a-rb__text-inner--floated {
+    font-size: rem(85);
+  }
 }
 
 @include breakpoint-up(bp(xl2)) {
-  .a-ribbon-link__text-inner {
+  .a-rb__text-inner {
     font-size: rem(120);
   }
 
-  .a-ribbon-link__text-inner--shadow {
-    font-size: rem(100);
+  .a-rb__text-inner--floated {
+    font-size: rem(115);
   }
 }
 
