@@ -82,7 +82,6 @@ export default {
   .s-links-ribbon__items {
     position: relative;
     height: rem(60);
-    font-size: rem(60);
   }
 
   .s-links-ribbon__items-w {
@@ -101,7 +100,6 @@ export default {
   .s-links-ribbon__item-a {
     display: inline-block;
     --wght-i: 200;
-    // font-variation-settings: "wdth" 100, "wght" var(--wght-i), "CNTR" 0;
   }
 
   @include breakpoint-up(bp(md)) {
@@ -111,10 +109,6 @@ export default {
 
     .s-links-ribbon__items {
       height: rem(90);
-    }
-
-    .s-links-ribbon__items-w {
-      font-size: rem(90);
     }
   }
 

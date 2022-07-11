@@ -7,6 +7,7 @@
     class="a-rb"
     @mousemove="onMouseMove"
     @mouseleave="onMouseLeave"
+    @mouseenter="onMousEenter"
   >
     <span ref="linkText" class="a-rb__text">
       <span ref="linkS" class="a-rb__text-inner a-rb__text-inner--floated">
@@ -48,20 +49,24 @@ export default {
         height: offset.height
       }
     },
+    onMousEenter () {
+      gsap.set(this.$refs.linkS, { css: { 'font-variation-settings': '"wdth" 100, "wght" var(--wght-i), "CNTR" 0' } })
+
+      this.$nuxt.$emit('hoverEnter', 'VIEW')
+    },
     onMouseLeave () {
+      this.$nuxt.$emit('hoverLeave')
       gsap.to(this.$refs.linkS, {
         progress: 0,
-        duration: 0.25,
+        duration: 0.5,
         ease: Cubic.easeOut,
         '--wght-i': 200,
-        '--scale-x': 0,
         onComplete: () => {
           gsap.set(this.$refs.linkS, { css: { 'font-variation-settings': 'unset' } })
         }
       })
     },
     onMouseMove (e) {
-      gsap.set(this.$refs.linkS, { css: { 'font-variation-settings': '"wdth" 100, "wght" var(--wght-i), "CNTR" 0' } })
       const width = this.$refs.link.getBoundingClientRect().width / 2
       const height = this.$refs.link.getBoundingClientRect().height / 2
       const x = e.clientX - (this.$refs.link.getBoundingClientRect().x + (width))
@@ -75,10 +80,9 @@ export default {
       const distanceSquared = wX + wY
 
       gsap.to(this.$refs.linkS, {
-        duration: 0.25,
+        duration: 0.5,
         ease: Cubic.easeOut,
-        '--wght-i': gsap.utils.clamp(200, 900, 900 - distanceSquared),
-        '--scale-x': 1 - pX * 0.01
+        '--wght-i': gsap.utils.clamp(200, 900, 900 - distanceSquared)
       })
     }
   }
@@ -89,7 +93,6 @@ export default {
 <style lang="scss">
 .a-image {
   display: inline-block;
-  // font-variation-settings: "wdth" 100, "wght" var(--wght-i), "CNTR" 0;
 }
 .a-rb {
   display: inline-block;
@@ -119,18 +122,6 @@ export default {
   --wght-i: 200;
   --scale-x: 0;
   font-size: rem(55);
-  // span {
-  //   &:after {
-  //     content: '';
-  //     position: absolute;
-  //     width: 100%;
-  //     height: 0.05em;
-  //     left: 0;
-  //     bottom: 0.15em;
-  //     background-color: $color--black;
-  //     // transform: scaleX(var(--scale-x))
-  //   }
-  // }
 }
 
 .a-rb__text-inner--spacer {
@@ -140,7 +131,7 @@ export default {
 
 .a-rb__s {
   position: relative;
-  transform: translateX(70%);
+  transform: translateX(55%);
   display: inline-block;
 }
 

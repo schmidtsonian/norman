@@ -1,5 +1,5 @@
 <template>
-  <main ref="mainWrapper">
+  <main ref="mainWrapper" class="l-main" @mousemove="onMouseMove" @resize="setBoundaries">
     <header class="l-header">
       <router-link to="/">
         <svg
@@ -45,13 +45,24 @@
 
     <CircleXy class="l-circle-xy l-circle-xy--left" />
     <CircleXy class="l-circle-xy l-circle-xy--right" />
+    <span ref="cursor" class="l-cursor" :class="`${isActive ? 'is-active' : ''} ${isHalfX ? 'is-half-x' : ''}`">
+      <span class="l-cursor__circle l-cursor__circle--outter">
+        <span ref="cursorCircle" class="l-cursor__circle l-cursor__circle--inner">
+          <svg class="l-cursor__arrow" x="0px" y="0px" viewBox="0 0 15.4 15.4">
+            <path d="M1,15.4L11.1,5.3c1.2-1.2,1.6-2.2,2.7-3.3l0.1,0.1c-0.9,2.2-1,4.7-0.4,7L15.2,9c-0.9-2.7-0.8-5.7,0.2-8.4 L14.8,0c-2.7,1-5.6,1.1-8.4,0.2L6.3,2c2.3,0.6,4.8,0.5,7-0.4l0.1,0.1c-1.1,1.1-2.1,1.5-3.3,2.7L0,14.4L1,15.4z" />
+          </svg>
+        </span>
+      </span>
+
+      <span class="l-cursor__text">{{ textCursor }}</span>
+    </span>
   </main>
 </template>
 
 <script>
 
 // eslint-disable-next-line no-unused-vars
-import { gsap, Circ } from 'gsap'
+import { gsap, Circ, Cubic } from 'gsap'
 // eslint-disable-next-line no-unused-vars
 import { ScrollSmoother } from 'gsap/ScrollSmoother'
 // eslint-disable-next-line no-unused-vars
@@ -60,9 +71,36 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 if (process.client) {
   gsap.registerPlugin(ScrollSmoother, ScrollTrigger)
 }
+
 export default {
   name: 'LayoutBase',
+  data () {
+    return {
+      pos: {
+        x: 1,
+        y: 1
+      },
+      mouse: {
+        x: 1,
+        y: 1
+      },
+      isActive: false,
+      isHalfX: false,
+      textCursor: '',
+      vW: 100,
+      vH: 100
+    }
+  },
   mounted () {
+    this.setBoundaries()
+
+    this.$nuxt.$on('hoverEnter', (payLoad) => {
+      this.isActive = true
+      this.textCursor = payLoad
+    })
+    this.$nuxt.$on('hoverLeave', () => {
+      this.isActive = false
+    })
     ScrollSmoother.create({
       smooth: 1,
       wrapper: this.$refs.mainWrapper,
@@ -104,11 +142,42 @@ export default {
         })
       }
     })
+
+    const xSet = gsap.quickSetter(this.$refs.cursor, 'x', 'px')
+    const ySet = gsap.quickSetter(this.$refs.cursor, 'y', 'px')
+
+    gsap.ticker.add(() => {
+      const speed = 0.05
+
+      const dt = 1.0 - Math.pow(1.0 - speed, gsap.ticker.deltaRatio())
+      this.isHalfX = this.mouse.x > this.vW
+      const x = this.isHalfX === true ? this.mouse.x - 50 : this.mouse.x + 50
+      const y = this.mouse.y > this.vH ? this.mouse.y - 50 : this.mouse.y + 50
+      this.pos.x += (x - this.pos.x) * dt
+      this.pos.y += (y - this.pos.y) * dt
+      xSet(this.pos.x)
+      ySet(this.pos.y)
+    })
+  },
+  methods: {
+    setBoundaries () {
+      this.vW = window.innerWidth / 2
+      this.vH = window.innerHeight / 2
+    },
+    onMouseMove (e) {
+      this.mouse = {
+        x: e.x,
+        y: e.y
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss">
+  .l-main {
+    background-color: $color--white;
+  }
   .l-header,
   .l-footer {
     z-index: $z-index--layout;
@@ -189,6 +258,91 @@ export default {
 
   .l-circle-xy {
     transform: translateY(var(--yy));
+  }
+
+  .l-cursor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    mix-blend-mode: difference;
+    pointer-events: none;
+  }
+
+  .l-cursor__circle {
+    position: relative;
+    display: block;
+    border-radius: 50%;
+    width: rem(15);
+    height: rem(15);
+    overflow: hidden;
+    mix-blend-mode: difference;
+    background-color: $color--white;
+
+    transition-property: width, height;
+    transition-duration: 0.45s;
+    transition-timing-function: $inOutBack;
+  }
+
+  .l-cursor__circle--inner {
+    border: 1px solid $color--black;
+  }
+
+  .l-cursor__arrow {
+    width: rem(15);
+    height: rem(15);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    background-color: $color--white;
+    opacity: 0;
+    transform: rotate(-90deg);
+    transition-property: opacity, transform;
+    transition-duration: 0.25s;
+    transition-timing-function: $customAuthenticMotion;
+
+    path {
+      mix-blend-mode: difference;
+      fill: $color--white
+    }
+  }
+
+  .l-cursor.is-half-x {
+    .l-cursor__arrow {
+      transform: rotate(0deg)
+    }
+  }
+
+  .l-cursor__text {
+    font-size: rem(10);
+    height: rem(15);
+    position: absolute;
+    top: rem(40);
+    color: $color--white;
+
+    opacity: 0;
+    transform: translateY(20px);
+    transition-property: opacity, transform;
+    transition-duration: 0.25s;
+    transition-timing-function: $inOutBack;
+  }
+
+  .l-cursor.is-active {
+    .l-cursor__arrow,
+    .l-cursor__text {
+      opacity: 1;
+      transition-duration: 0.45s 0.15s;
+    }
+    .l-cursor__text {
+      transform: translateY(0);
+    }
+    .l-cursor__circle {
+      width: rem(40);
+      height: rem(40);
+      transition-duration: 0.25s;
+    }
   }
 
   @include breakpoint-up(bp(sm)) {
