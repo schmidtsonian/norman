@@ -54,7 +54,11 @@
         </span>
       </span>
 
-      <span class="l-cursor__text">{{ textCursor }}</span>
+    </span>
+    <span ref="tooltip" class="l-tooltip">
+      <span class="l-tooltip__text">
+        {{ textCursor }}
+      </span>
     </span>
   </main>
 </template>
@@ -76,7 +80,16 @@ export default {
   name: 'LayoutBase',
   data () {
     return {
-      pos: {
+      isActive: false,
+      isHalfX: false,
+      textCursor: '',
+      vW: 100,
+      vH: 100,
+      posCircle: {
+        x: 1,
+        y: 1
+      },
+      posTooltip: {
         x: 1,
         y: 1
       },
@@ -84,14 +97,16 @@ export default {
         x: 1,
         y: 1
       },
-      isActive: false,
-      isHalfX: false,
-      textCursor: '',
-      vW: 100,
-      vH: 100
+      speedCircle: 0.05,
+      speedText: 0.045
     }
   },
   mounted () {
+    this.dt = {
+      x: 0,
+      y: 0
+    }
+
     this.setBoundaries()
 
     this.$nuxt.$on('hoverEnter', (payLoad) => {
@@ -100,6 +115,7 @@ export default {
     })
     this.$nuxt.$on('hoverLeave', () => {
       this.isActive = false
+      this.textCursor = ''
     })
     ScrollSmoother.create({
       smooth: 1,
@@ -143,20 +159,36 @@ export default {
       }
     })
 
-    const xSet = gsap.quickSetter(this.$refs.cursor, 'x', 'px')
-    const ySet = gsap.quickSetter(this.$refs.cursor, 'y', 'px')
+    const setCircleX = gsap.quickSetter(this.$refs.cursor, 'x', 'px')
+    const setCircleY = gsap.quickSetter(this.$refs.cursor, 'y', 'px')
+    const setCircleW = gsap.quickSetter(this.$refs.cursorCircle, 'border-width', 'px')
+    const setTooltipX = gsap.quickSetter(this.$refs.tooltip, 'x', 'px')
+    const setTooltipY = gsap.quickSetter(this.$refs.tooltip, 'y', 'px')
 
     gsap.ticker.add(() => {
-      const speed = 0.05
+      const dtCircle = 1.0 - Math.pow(1.0 - this.speedCircle, gsap.ticker.deltaRatio())
+      const dtTooltip = 1.0 - Math.pow(1.0 - this.speedText, gsap.ticker.deltaRatio())
 
-      const dt = 1.0 - Math.pow(1.0 - speed, gsap.ticker.deltaRatio())
       this.isHalfX = this.mouse.x > this.vW
-      const x = this.isHalfX === true ? this.mouse.x - 50 : this.mouse.x + 50
-      const y = this.mouse.y > this.vH ? this.mouse.y - 50 : this.mouse.y + 50
-      this.pos.x += (x - this.pos.x) * dt
-      this.pos.y += (y - this.pos.y) * dt
-      xSet(this.pos.x)
-      ySet(this.pos.y)
+
+      const xCircle = this.isHalfX === true ? this.mouse.x - 50 : this.mouse.x + 50
+      const yCircle = this.mouse.y > this.vH ? this.mouse.y - 50 : this.mouse.y + 50
+      const xTooltip = this.isHalfX === true ? this.mouse.x - 50 : this.mouse.x + 50
+      const yTooltip = this.mouse.y > this.vH ? this.mouse.y - 50 : this.mouse.y + 50
+
+      this.posCircle.x += (xCircle - this.posCircle.x) * dtCircle
+      this.posCircle.y += (yCircle - this.posCircle.y) * dtCircle
+      this.posTooltip.x += (xTooltip - this.posTooltip.x) * dtTooltip
+      this.posTooltip.y += (yTooltip - this.posTooltip.y) * dtTooltip
+
+      const distance = Math.abs((xCircle - this.posCircle.x) * dtCircle) + Math.abs((yCircle - this.posCircle.y) * dtCircle)
+      const w = gsap.utils.clamp(1, 10, distance)
+
+      setCircleW(w)
+      setCircleX(this.posCircle.x)
+      setCircleY(this.posCircle.y)
+      setTooltipX(this.posTooltip.x)
+      setTooltipY(this.posTooltip.y)
     })
   },
   methods: {
@@ -315,28 +347,19 @@ export default {
     }
   }
 
-  .l-cursor__text {
+  .l-tooltip {
     font-size: rem(10);
     height: rem(15);
-    position: absolute;
+    position: fixed;
     top: rem(40);
-    color: $color--white;
-
-    opacity: 0;
-    transform: translateY(20px);
-    transition-property: opacity, transform;
-    transition-duration: 0.25s;
-    transition-timing-function: $inOutBack;
+    color: $color--black;
+    pointer-events: none;
   }
 
   .l-cursor.is-active {
-    .l-cursor__arrow,
-    .l-cursor__text {
+    .l-cursor__arrow {
       opacity: 1;
       transition-duration: 0.45s 0.15s;
-    }
-    .l-cursor__text {
-      transform: translateY(0);
     }
     .l-cursor__circle {
       width: rem(40);
