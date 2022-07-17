@@ -347,15 +347,6 @@ export default {
     }
   }
 
-  .l-tooltip {
-    font-size: rem(10);
-    height: rem(15);
-    position: fixed;
-    top: rem(40);
-    color: $color--black;
-    pointer-events: none;
-  }
-
   .l-cursor.is-active {
     .l-cursor__arrow {
       opacity: 1;
@@ -366,6 +357,21 @@ export default {
       height: rem(40);
       transition-duration: 0.25s;
     }
+  }
+
+  .l-tooltip {
+    font-size: rem(10);
+    height: rem(15);
+    position: fixed;
+    top: rem(40);
+    color: $color--black;
+    pointer-events: none;
+    mix-blend-mode: difference;
+  }
+  .l-tooltip__text {
+    color: $color--white;
+    mix-blend-mode: difference;
+    display: inline-block;
   }
 
   @include breakpoint-up(bp(sm)) {
