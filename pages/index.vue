@@ -3,7 +3,12 @@
     <div class="row">
       <div class="col-18">
         <div v-for="(project, i) in document.results" :key="`project-${i}`">
-          <router-link :to="`/projects/${project.uid}`">
+          <router-link
+            class="link"
+            :to="`/projects/${project.uid}`"
+            @mouseleave.native="onMouseLeave"
+            @mouseenter.native="onMousEenter"
+          >
             {{ project.data.headline }}
           </router-link>
         </div>
@@ -42,6 +47,20 @@ export default {
   mounted () {
     ScrollTrigger.refresh()
     ScrollSmoother.refresh()
+  },
+  methods: {
+    onMousEenter () {
+      this.$nuxt.$emit('hoverEnter', 'VIEW')
+    },
+    onMouseLeave () {
+      this.$nuxt.$emit('hoverLeave')
+    }
   }
 }
 </script>
+
+<style lang="scss">
+  .link {
+    display: block;
+  }
+</style>

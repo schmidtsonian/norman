@@ -1,7 +1,11 @@
 <template>
   <main ref="mainWrapper" class="l-main" @mousemove="onMouseMove" @resize="setBoundaries">
     <header class="l-header">
-      <router-link to="/">
+      <router-link
+        to="/"
+        @mouseleave.native="onMouseLeave"
+        @mouseenter.native="onMousEenter"
+      >
         <svg
           x="0px"
           y="0px"
@@ -201,6 +205,12 @@ export default {
         x: e.x,
         y: e.y
       }
+    },
+    onMousEenter () {
+      this.$nuxt.$emit('hoverEnter', 'HOME')
+    },
+    onMouseLeave () {
+      this.$nuxt.$emit('hoverLeave')
     }
   }
 }

@@ -91,9 +91,9 @@ export default {
 </script>
 
 <style lang="scss">
-.a-image {
-  display: inline-block;
-}
+// .a-image {
+//   display: inline-block;
+// }
 .a-rb {
   display: inline-block;
   padding: 1em 0;
