@@ -172,8 +172,12 @@ export default {
       }
     })
 
+    const setX = gsap.quickSetter(this.$refs.mainWrapper, '--px', 'px')
+    const setY = gsap.quickSetter(this.$refs.mainWrapper, '--py', 'px')
+
     const setCircleX = gsap.quickSetter(this.$refs.cursor, 'x', 'px')
     const setCircleY = gsap.quickSetter(this.$refs.cursor, 'y', 'px')
+
     const setCircleW = gsap.quickSetter(this.$refs.cursorCircle, 'border-width', 'px')
     const setTooltipX = gsap.quickSetter(this.$refs.tooltip, 'x', 'px')
     const setTooltipY = gsap.quickSetter(this.$refs.tooltip, 'y', 'px')
@@ -202,6 +206,9 @@ export default {
       setCircleY(this.posCircle.y)
       setTooltipX(this.posTooltip.x)
       setTooltipY(this.posTooltip.y)
+
+      setX(this.posCircle.x)
+      setY(this.posCircle.y)
     })
   },
   methods: {
