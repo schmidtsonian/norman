@@ -16,7 +16,7 @@
       </div>
     </header>
 
-    <slice-zone :components="components" :slices="document.data.slices" />
+    <slice-zone :components="components" :slices="document.data.slices" class="slices" />
   </article>
 </template>
 
@@ -81,6 +81,10 @@ export default {
     padding-bottom: rem(35px);
   }
 
+  .slices {
+    padding-bottom: rem(80);
+  }
+
   @include breakpoint-up(bp(md)) {
     .header {
       padding-top: rem(265px);
@@ -94,6 +98,10 @@ export default {
 
     .description {
       padding-bottom: rem(100px);
+    }
+
+    .slices {
+      padding-bottom: rem(160);
     }
   }
 
@@ -110,6 +118,10 @@ export default {
 
     .description {
       padding-bottom: 219px;
+    }
+
+    .slices {
+      padding-bottom: rem(240);
     }
   }
 </style>

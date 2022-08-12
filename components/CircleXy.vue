@@ -30,6 +30,7 @@ export default {
     bottom: 0;
     margin-top: auto;
     margin-bottom: auto;
+    // z-index: $z-index--layout + 1;
   }
 
   .a-xy__circle,

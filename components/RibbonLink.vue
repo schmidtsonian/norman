@@ -36,19 +36,19 @@ export default {
       required: true
     }
   },
-  mounted () {
-    this.setBoundaries()
-  },
+  // mounted () {
+  //   this.setBoundaries()
+  // },
   methods: {
-    setBoundaries () {
-      const offset = this.$refs.linkText.getBoundingClientRect()
-      this.rect = {
-        left: offset.left,
-        width: offset.width,
-        top: offset.top,
-        height: offset.height
-      }
-    },
+    // setBoundaries () {
+    //   // const offset = this.$refs.linkText.getBoundingClientRect()
+    //   // this.rect = {
+    //   //   left: offset.left,
+    //   //   width: offset.width,
+    //   //   top: offset.top,
+    //   //   height: offset.height
+    //   // }
+    // },
     onMousEenter () {
       gsap.set(this.$refs.linkS, { css: { 'font-variation-settings': '"wdth" 100, "wght" var(--wght-i), "CNTR" 0' } })
 

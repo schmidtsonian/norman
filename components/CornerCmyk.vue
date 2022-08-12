@@ -17,6 +17,7 @@ export default {
 <style lang="scss">
   .a-corner {
     position: fixed;
+    z-index: $z-index--layout + 1;
 
     &, span {
       display: block;

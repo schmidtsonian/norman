@@ -29,6 +29,16 @@
         </div>
       </div>
     </div>
+
+    <div v-if="slice.variation == 'default'">
+      <div class="container">
+        <div class="row">
+          <div class="col-18 col-xl-14 offset-xl-2">
+            <ResponsiveImage :v-if="slice.primary.image" :image="slice.primary.image" />
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 

@@ -3,8 +3,8 @@
     <header class="l-header">
       <router-link
         to="/"
-        @mouseleave.native="onMouseLeave"
-        @mouseenter.native="onMousEenter"
+        @mouseleave.native="onLogoMouseLeave"
+        @mouseenter.native="onLogoMouseEnter"
       >
         <svg
           x="0px"
@@ -30,7 +30,20 @@
       </router-link>
     </header>
 
-    <div ref="mainContainer">
+    <button
+      ref="btMenu"
+      class="l-bt-menu"
+      @mouseleave="onButtonMouseLeave"
+      @mouseenter="onButtonMouseEnter"
+      @mousemove="onButtonMouseMove"
+      @click="onToggleBtMenu"
+    >
+      <span ref="btMenuText"> {{ isMenuActive ? 'CLOSE' : 'MENU' }} </span>
+    </button>
+
+    <LayoutNavigation ref="nav" :class="`${isMenuActive ? 'is-active' : ''}`" />
+
+    <div ref="mainContainer" class="l-container">
       <Nuxt />
     </div>
 
@@ -49,7 +62,7 @@
 
     <CircleXy class="l-circle-xy l-circle-xy--left" />
     <CircleXy class="l-circle-xy l-circle-xy--right" />
-    <span ref="cursor" class="l-cursor" :class="`${isActive ? 'is-active' : ''} ${isHalfX ? 'is-half-x' : ''}`">
+    <span ref="cursor" class="l-cursor" :class="`${isCursorActive ? 'is-active' : ''} ${isHalfX ? 'is-half-x' : ''}`">
       <span class="l-cursor__circle l-cursor__circle--outter">
         <span ref="cursorCircle" class="l-cursor__circle l-cursor__circle--inner">
           <svg class="l-cursor__arrow" x="0px" y="0px" viewBox="0 0 15.4 15.4">
@@ -84,7 +97,8 @@ export default {
   name: 'LayoutBase',
   data () {
     return {
-      isActive: false,
+      isCursorActive: false,
+      isMenuActive: false,
       isHalfX: false,
       textCursor: '',
       vW: 100,
@@ -102,7 +116,8 @@ export default {
         y: 1
       },
       speedCircle: 0.05,
-      speedText: 0.045
+      speedText: 0.045,
+      scroll: ScrollSmoother
     }
   },
   mounted () {
@@ -114,14 +129,14 @@ export default {
     this.setBoundaries()
 
     this.$nuxt.$on('hoverEnter', (payLoad) => {
-      this.isActive = true
+      this.isCursorActive = true
       this.textCursor = payLoad
     })
     this.$nuxt.$on('hoverLeave', () => {
-      this.isActive = false
+      this.isCursorActive = false
       this.textCursor = ''
     })
-    ScrollSmoother.create({
+    this.scroll = ScrollSmoother.create({
       smooth: 1,
       wrapper: this.$refs.mainWrapper,
       content: this.$refs.mainContainer,
@@ -199,6 +214,9 @@ export default {
     setBoundaries () {
       this.vW = window.innerWidth / 2
       this.vH = window.innerHeight / 2
+
+      // ScrollTrigger.refresh()
+      ScrollSmoother.refresh()
     },
     onMouseMove (e) {
       this.mouse = {
@@ -206,35 +224,123 @@ export default {
         y: e.y
       }
     },
-    onMousEenter () {
+    onLogoMouseEnter () {
       this.$nuxt.$emit('hoverEnter', 'HOME')
     },
-    onMouseLeave () {
+    onLogoMouseLeave () {
       this.$nuxt.$emit('hoverLeave')
+    },
+    onButtonMouseEnter () {
+      this.$nuxt.$emit('hoverEnter', 'MENU')
+
+      gsap.set(this.$refs.btMenuText, { css: { 'font-variation-settings': '"wdth" var(--wdth-i), "wght" var(--wght-i), "CNTR" 0' } })
+    },
+    onButtonMouseMove (e) {
+      const width = this.$refs.btMenu.getBoundingClientRect().width / 2
+      const height = this.$refs.btMenu.getBoundingClientRect().height / 2
+      // const x = e.clientX - (this.$refs.btMenu.getBoundingClientRect().x + (width))
+      const y = e.clientY - (this.$refs.btMenu.getBoundingClientRect().y + (height))
+      // const pX = Math.abs((x * 100) / (width))
+      const pY = Math.abs((y * 100) / (width))
+      // const wX = 900 * (pX * 0.01)
+      const wY = 900 * (pY * 0.01)
+
+      // const distanceSquared = wX + wY
+      const distanceSquared = wY
+
+      gsap.to(this.$refs.btMenuText, {
+        duration: 0.5,
+        ease: Cubic.easeOut,
+        '--wdth-i': gsap.utils.clamp(100, 200, 200 - distanceSquared),
+        '--wght-i': gsap.utils.clamp(200, 900, 900 - distanceSquared)
+      })
+    },
+    onButtonMouseLeave () {
+      this.$nuxt.$emit('hoverLeave')
+
+      gsap.to(this.$refs.btMenuText, {
+        progress: 0,
+        duration: 0.5,
+        ease: Cubic.easeOut,
+        '--wdth-i': 100,
+        '--wght-i': 200
+        // onComplete: () => {
+        //   gsap.set(this.$refs.btMenuText, { css: { 'font-variation-settings': 'unset' } })
+        // }
+      })
+    },
+    onToggleBtMenu () {
+      this.isMenuActive = !this.isMenuActive
+      this.scroll.paused(this.isMenuActive)
     }
   }
 }
 </script>
 
 <style lang="scss">
-  .l-main {
-    background-color: $color--white;
+  .l-bt-menu {
+    z-index: $z-index--layout + 1;
   }
+
   .l-header,
   .l-footer {
     z-index: $z-index--layout;
+  }
+
+  .l-cursor {
+    z-index: $z-index--layout + 2;
+  }
+
+  .l-main {
+    background-color: $color--white;
+  }
+
+  .l-header,
+  .l-footer {
     position: relative;
     width: 100vw;
   }
 
+  .l-container {
+    position: relative;
+  }
+
+  .l-header,
+  .l-bt-menu {
+    padding-top: rem(25);
+  }
+
   .l-header {
     text-align: center;
-    padding-top: rem(25);
+  }
+
+  .l-bt-menu,
+  .l-header__logo {
+    height: rem(30px);
+    line-height: rem(30);
   }
 
   .l-header__logo {
     width: rem(53);
-    height: rem(30px);
+  }
+
+  .l-bt-menu {
+    position: absolute;
+    box-sizing: content-box;
+    text-align: left;
+    top: 0;
+    right: 0;
+    padding-right: rem(70);
+    padding-left: rem(70);
+    padding-bottom: 2em;
+    // width: 8em;
+    --wdth-i: 100;
+    --wght-i: 200;
+    font-family: $ff-atacama;
+    font-variation-settings: "wdth" var(--wdth-i), "wght" var(--wght-i), "CNTR" 0;
+    cursor: pointer;
+    mix-blend-mode: difference;
+    color: $color--white
   }
 
   .l-header__logo,
@@ -385,9 +491,14 @@ export default {
   }
 
   @include breakpoint-up(bp(sm)) {
+    .l-bt-menu,
+    .l-header__logo {
+      height: rem(22);
+      line-height: rem(22);
+    }
+
     .l-header__logo {
       width: rem(250);
-      height: rem(22);
     }
 
     .l-header__l--d {
@@ -400,6 +511,13 @@ export default {
   }
 
   @include breakpoint-up(bp(md)) {
+    .l-bt-menu,
+    .l-header__logo {
+      height: rem(22);
+      line-height: rem(22);
+    }
+
+    .l-bt-menu,
     .l-header {
       padding-top: rem(30);
     }
@@ -407,6 +525,10 @@ export default {
     .l-footer__logo {
       display: block;
     }
+
+    // .l-bt-menu {
+    //   width: 9em;
+    // }
 
     .l-corner--left-top,
     .l-corner--right-top {
@@ -433,8 +555,14 @@ export default {
   }
 
   @include breakpoint-up(bp(xl2)) {
+    .l-bt-menu,
     .l-header {
       padding-top: rem(40);
+    }
+
+    .l-bt-menu {
+      font-size: rem(20);
+      // width: 10em;
     }
 
     .l-corner {
@@ -446,7 +574,7 @@ export default {
 
     .l-corner--left-top,
     .l-corner--right-top {
-      top: rem(25)
+      top: rem(42)
     }
 
     .l-footer,
