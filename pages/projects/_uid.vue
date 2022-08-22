@@ -3,7 +3,7 @@
     <header class="header">
       <div class="container">
         <div class="row">
-          <div class="col-18 col-lg-16 offset-lg-1 col-xl2-14 offset-xl2-2">
+          <div class="col-16 col-lg-16 offset-lg-1 col-xl2-14 offset-xl2-2">
             <h1 class="headline">
               {{ document.data.headline }}
             </h1>
@@ -35,7 +35,7 @@ if (process.client) {
 }
 
 export default {
-  name: 'ProjectsDetail',
+  name: 'ProjectDetail',
   layout: 'base',
   // middleware () {
   //   console.log('wt')

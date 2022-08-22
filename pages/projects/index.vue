@@ -1,5 +1,5 @@
 <template>
-  <div>h1 about</div>
+  <div>h1 Projects !!!</div>
 </template>
 
 <script>
@@ -16,7 +16,16 @@ if (process.client) {
 }
 
 export default {
-  name: 'AboutPage',
-  layout: 'base'
+  name: 'ProjectsPage',
+  layout: 'base',
+  async asyncData ({ $prismic, params, error }) {
+    // const document = await $prismic.api.getSingle('home')
+    const document = (await $prismic.api.getSingle('projects_archive'))
+    if (document) {
+      return { document }
+    } else {
+      error({ statusCode: 404, message: 'Page not found' })
+    }
+  }
 }
 </script>

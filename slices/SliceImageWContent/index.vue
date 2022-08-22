@@ -2,10 +2,10 @@
   <section class="s-image-wc">
     <div class="container">
       <div class="row">
-        <div class="col-18 col-md-8 col-xl2-6 offset-md-1">
-          <ResponsiveImage :v-if="slice.primary.image" :image="slice.primary.image" />
+        <div class="col-16 offset-1 col-md-7 col-xl2-6 offset-md-1">
+          <ResponsiveImage v-if="slice.primary.image" :image="slice.primary.image" />
         </div>
-        <div class="col-18 col-md-8 offset-md-1 col-xl2-5 offset-xl2-3">
+        <div class="col-16 offset-1 col-md-7 offset-md-1 col-xl2-5 offset-xl2-3">
           <div v-for="(item, i) in slice.items" :key="`slice-item-${i}`">
             <h3 v-if="item.headline" class="h-label">
               {{ item.headline }}

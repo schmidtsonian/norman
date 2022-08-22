@@ -2,14 +2,14 @@
   <section class="s-metas">
     <div class="container">
       <div class="row">
-        <div class="col-18 col-md-9 col-lg-9 offset-lg-1 col-xl2-7 offset-xl2-1 col-xl3-6 offset-xl3-2 s-metas__col-desc">
+        <div class="col-16 offset-1 col-md-7 col-lg-9 offset-lg-1 col-xl2-7 offset-xl2-1 col-xl3-6 offset-xl3-2 s-metas__col-desc">
           <PrismicRichText
             :field="slice.primary.description"
             class="h-p"
           />
         </div>
 
-        <div class="col-18 col-md-9 col-lg-6 offset-lg-1 col-xl2-6 offset-xl2-2 s-metas__col-metas">
+        <div class="col-16 offset-1 col-md-8 col-lg-6 offset-lg-1 col-xl2-6 offset-xl2-2 s-metas__col-metas">
           <div>
             <div
               v-for="(item, i) in slice.items"

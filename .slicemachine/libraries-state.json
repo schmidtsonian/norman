@@ -63,7 +63,13 @@
           "fileName": "index",
           "extension": "vue"
         },
-        "screenshotPaths": {}
+        "screenshotPaths": {
+          "default": {
+            "path": "/Users/esteban/Norman/dev/norman-portfolio/.slicemachine/assets/slices/SliceHeadline/default/preview.png",
+            "width": 800,
+            "height": 251
+          }
+        }
       },
       "slice_image": {
         "library": "slices",
@@ -466,7 +472,13 @@
           "fileName": "index",
           "extension": "vue"
         },
-        "screenshotPaths": {}
+        "screenshotPaths": {
+          "default": {
+            "path": "/Users/esteban/Norman/dev/norman-portfolio/slices/SliceLinksRibbon/default/preview.png",
+            "width": 1903,
+            "height": 365
+          }
+        }
       },
       "slice_metas": {
         "library": "slices",

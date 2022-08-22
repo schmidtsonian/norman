@@ -24,6 +24,35 @@
       "image": {
         "content": "https://images.unsplash.com/photo-1587411768065-fd9b9dd13359"
       }
+    },
+    "navigation": {
+      "content": {
+        "config": {
+          "patternType": "PARAGRAPH",
+          "blocks": 1
+        }
+      }
+    },
+    "generic": {
+      "content": {
+        "the_content": {
+          "config": {
+            "patternType": "HEADING",
+            "blocks": 1
+          }
+        }
+      }
+    },
+    "about": {
+      "content": {
+        "config": {
+          "patternType": "PARAGRAPH",
+          "blocks": 1
+        }
+      }
+    },
+    "projects_archive": {
+      "projects": {}
     }
   },
   "slices": {

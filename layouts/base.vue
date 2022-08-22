@@ -1,5 +1,5 @@
 <template>
-  <main ref="mainWrapper" class="l-main" @mousemove="onMouseMove" @resize="setBoundaries">
+  <div>
     <header class="l-header">
       <router-link
         to="/"
@@ -23,7 +23,6 @@
         </h1>
       </router-link>
     </header>
-
     <button
       ref="btMenu"
       class="l-bt-menu"
@@ -34,53 +33,49 @@
     >
       <span ref="btMenuText"> {{ isMenuActive ? 'CLOSE' : 'MENU' }} </span>
     </button>
+    <main ref="mainWrapper" class="l-main" @mousemove="onMouseMove" @resize="setBoundaries">
+      <LayoutNavigation ref="nav" :class="`${isMenuActive ? 'is-active' : ''}`" />
 
-    <LayoutNavigation ref="nav" :class="`${isMenuActive ? 'is-active' : ''}`" />
-
-    <div ref="mainContainer" class="l-container">
-      <Nuxt />
-    </div>
-
-    <footer class="l-footer">
-      <div class="l-footer__logo">
-        <h4 class="h-font-logo">
-          .Design
-        </h4>
+      <div ref="mainContainer" class="l-container">
+        <Nuxt />
       </div>
-    </footer>
 
-    <CornerCmyk class="l-corner--left-top" />
-    <CornerCmyk class="l-corner--right-top" />
-    <CornerCmyk class="l-corner--left-bottom" />
-    <CornerCmyk class="l-corner--right-bottom" />
+      <CornerCmyk class="l-corner--left-top" />
+      <CornerCmyk class="l-corner--right-top" />
+      <CornerCmyk class="l-corner--left-bottom" />
+      <CornerCmyk class="l-corner--right-bottom" />
 
-    <CircleXy class="l-circle-xy l-circle-xy--left" />
-    <CircleXy class="l-circle-xy l-circle-xy--right" />
-    <span ref="cursor" class="l-cursor" :class="`${isCursorActive ? 'is-active' : ''} ${isHalfX ? 'is-half-x' : ''}`">
-      <span class="l-cursor__circle l-cursor__circle--outter">
-        <span ref="cursorCircle" class="l-cursor__circle l-cursor__circle--inner">
-          <svg class="l-cursor__arrow" x="0px" y="0px" viewBox="0 0 15.4 15.4">
-            <path d="M1,15.4L11.1,5.3c1.2-1.2,1.6-2.2,2.7-3.3l0.1,0.1c-0.9,2.2-1,4.7-0.4,7L15.2,9c-0.9-2.7-0.8-5.7,0.2-8.4 L14.8,0c-2.7,1-5.6,1.1-8.4,0.2L6.3,2c2.3,0.6,4.8,0.5,7-0.4l0.1,0.1c-1.1,1.1-2.1,1.5-3.3,2.7L0,14.4L1,15.4z" />
-          </svg>
+      <CircleXy class="l-circle-xy l-circle-xy--left" />
+      <CircleXy class="l-circle-xy l-circle-xy--right" />
+      <span ref="cursor" class="l-cursor" :class="`${deviceType} ${isCursorActive ? 'is-active' : ''} ${isHalfX ? 'is-half-x' : ''}`">
+        <span class="l-cursor__circle l-cursor__circle--outter">
+          <span ref="cursorCircle" class="l-cursor__circle l-cursor__circle--inner">
+            <svg class="l-cursor__arrow" x="0px" y="0px" viewBox="0 0 15.4 15.4">
+              <path d="M1,15.4L11.1,5.3c1.2-1.2,1.6-2.2,2.7-3.3l0.1,0.1c-0.9,2.2-1,4.7-0.4,7L15.2,9c-0.9-2.7-0.8-5.7,0.2-8.4 L14.8,0c-2.7,1-5.6,1.1-8.4,0.2L6.3,2c2.3,0.6,4.8,0.5,7-0.4l0.1,0.1c-1.1,1.1-2.1,1.5-3.3,2.7L0,14.4L1,15.4z" />
+            </svg>
+          </span>
+        </span>
+
+      </span>
+      <span ref="tooltip" class="l-tooltip" :class="`${deviceType}`">
+        <span class="l-tooltip__text">
+          {{ textCursor }}
         </span>
       </span>
-
-    </span>
-    <span ref="tooltip" class="l-tooltip">
-      <span class="l-tooltip__text">
-        {{ textCursor }}
-      </span>
-    </span>
-  </main>
+    </main>
+    <footer class="l-footer">
+      <h4 class="l-footer__logo h-font-logo">
+        .Design
+      </h4>
+    </footer>
+  </div>
 </template>
 
 <script>
 
-// eslint-disable-next-line no-unused-vars
+import * as detectIt from 'detect-it'
 import { gsap, Circ, Cubic } from 'gsap'
-// eslint-disable-next-line no-unused-vars
 import { ScrollSmoother } from 'gsap/ScrollSmoother'
-// eslint-disable-next-line no-unused-vars
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 if (process.client) {
@@ -89,8 +84,12 @@ if (process.client) {
 
 export default {
   name: 'LayoutBase',
+  async middleware ({ store, $prismic }) {
+    await store.dispatch('fetchMenu', $prismic)
+  },
   data () {
     return {
+      deviceType: '',
       isCursorActive: false,
       isMenuActive: false,
       isHalfX: false,
@@ -115,6 +114,8 @@ export default {
     }
   },
   mounted () {
+    this.deviceType = detectIt.deviceType.toLowerCase()
+
     this.dt = {
       x: 0,
       y: 0
@@ -279,6 +280,12 @@ export default {
 </script>
 
 <style lang="scss">
+  .l-bt-menu,
+  .l-header,
+  .l-footer {
+    position: fixed;
+  }
+
   .l-bt-menu {
     z-index: $z-index--layout + 1;
   }
@@ -286,6 +293,8 @@ export default {
   .l-header,
   .l-footer {
     z-index: $z-index--layout;
+    width: 100vw;
+    box-sizing: content-box;
   }
 
   .l-cursor,
@@ -299,12 +308,6 @@ export default {
 
   .l-header__logo {
     letter-spacing: 0;
-  }
-
-  .l-header,
-  .l-footer {
-    position: relative;
-    width: 100vw;
   }
 
   .l-container {
@@ -330,15 +333,13 @@ export default {
   }
 
   .l-bt-menu {
-    position: absolute;
     box-sizing: content-box;
     text-align: left;
     top: 0;
     right: 0;
-    padding-right: rem(70);
-    padding-left: rem(70);
+    padding-right: rem(50);
+    padding-left: rem(5);
     padding-bottom: 2em;
-    // width: 8em;
     --wdth-i: 100;
     --wght-i: 200;
     font-family: $ff-atacama;
@@ -348,26 +349,24 @@ export default {
     color: $color--white
   }
 
-  .l-footer__logo {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
   .l-header__l--s {
     display: none;
   }
 
   .l-footer {
     width: 100%;
-    position: fixed;
+    mix-blend-mode: difference;
+    color: $color--white;
+    bottom: rem(25);
   }
 
   .l-footer__logo {
+    display: block;
     text-align: center;
     font-size: rem(28);
     width: rem(128);
-    height: rem(26);
-    display: none;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .l-corner--right-top {
@@ -395,13 +394,13 @@ export default {
   .l-corner--left-top,
   .l-corner--left-bottom,
   .l-circle-xy--left {
-    left: rem(25);
+    left: rem(8);
   }
 
   .l-corner--right-top,
   .l-corner--right-bottom,
   .l-circle-xy--right {
-    right: rem(25);
+    right: rem(8);
   }
 
   .l-circle-xy {
@@ -491,6 +490,13 @@ export default {
     display: inline-block;
   }
 
+  .l-cursor,
+  .l-tooltip {
+    :not(.mouseonly) {
+      display: none !important;
+    }
+  }
+
   @include breakpoint-up(bp(sm)) {
     // .l-bt-menu,
     // .l-header {
@@ -499,7 +505,7 @@ export default {
     // }
 
     .l-bt-menu {
-      padding-left: rem(100);
+      padding-left: rem(40);
       padding-right: rem(100);
     }
   }
@@ -517,10 +523,6 @@ export default {
     .l-bt-menu,
     .l-header {
       padding-top: rem(30);
-    }
-
-    .l-footer__logo {
-      display: block;
     }
 
     // .l-bt-menu {
@@ -548,6 +550,12 @@ export default {
     .l-corner--right-bottom
     .l-circle-xy--right {
       right: rem(30);
+    }
+  }
+
+  @include breakpoint-up(bp(lg)) {
+    .l-bt-menu {
+      padding-left: rem(70);
     }
   }
 

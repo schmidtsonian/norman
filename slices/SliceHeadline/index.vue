@@ -2,7 +2,7 @@
   <section class="s-headline">
     <div class="container">
       <div class="row">
-        <div class="col-18 col-lg-16 offset-lg-1 col-xl3-14 offset-xl3-2 ">
+        <div class="col-16 offset-1 col-xl3-14 offset-xl3-2 ">
           <strong v-if="slice.primary.topLine" class="s-headline__t h-label">{{ slice.primary.topLine }}</strong>
 
           <PrismicRichText

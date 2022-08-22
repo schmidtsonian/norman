@@ -4,15 +4,15 @@
     :class="`s-image--${slice.variation.toLowerCase()}`"
   >
     <div v-if="slice.variation == 'fullViewportWidth'">
-      <ResponsiveImage :v-if="slice.primary.image" :image="slice.primary.image" />
+      <ResponsiveImage v-if="slice.primary.image" :image="slice.primary.image" />
     </div>
 
     <div v-if="slice.variation == 'alignRight'">
       <div class="container">
         <div class="row">
-          <div class="col-18 col-xl2-10 offset-xl2-8">
-            <ResponsiveImage :v-if="slice.primary.image" :image="slice.primary.image" />
-            <p :v-if="slice.primary.label" class="s-image__label">
+          <div class="col-16 offset-1 col-xl2-10 offset-xl2-8">
+            <ResponsiveImage v-if="slice.primary.image" :image="slice.primary.image" />
+            <p v-if="slice.primary.label" class="s-image__label">
               {{ slice.primary.label }}
             </p>
           </div>
@@ -23,8 +23,8 @@
     <div v-if="slice.variation == 'labelCentered'">
       <div class="container">
         <div class="row">
-          <div class="col-18">
-            <ResponsiveImage :v-if="slice.primary.image" :image="slice.primary.image" />
+          <div class="col-16 offset-1">
+            <ResponsiveImage v-if="slice.primary.image" :image="slice.primary.image" />
           </div>
         </div>
       </div>
@@ -33,8 +33,8 @@
     <div v-if="slice.variation == 'default'">
       <div class="container">
         <div class="row">
-          <div class="col-18 col-xl-14 offset-xl-2">
-            <ResponsiveImage :v-if="slice.primary.image" :image="slice.primary.image" />
+          <div class="col-16 offset-1 col-xl-14 offset-xl-2">
+            <ResponsiveImage v-if="slice.primary.image" :image="slice.primary.image" />
           </div>
         </div>
       </div>

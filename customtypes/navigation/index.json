@@ -1,0 +1,74 @@
+{
+  "id": "navigation",
+  "label": "Navigation",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "menu_metas": {
+        "type": "Group",
+        "config": {
+          "label": "Menu Metas",
+          "fields": {
+            "link": {
+              "type": "Link",
+              "config": {
+                "label": "Link",
+                "placeholder": "",
+                "select": null
+              }
+            },
+            "title": {
+              "type": "Text",
+              "config": {
+                "label": "Title",
+                "placeholder": ""
+              }
+            }
+          }
+        }
+      },
+      "content": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Content",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,em,strong,hyperlink"
+        }
+      },
+      "image_default": {
+        "type": "Image",
+        "config": {
+          "label": "Image \"Default\" (16:9)",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "image_projects": {
+        "type": "Image",
+        "config": {
+          "label": "Image \"Projects\" (16:9)",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "image_about": {
+        "type": "Image",
+        "config": {
+          "label": "Image \"About\" (16:9)",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "image_imprint": {
+        "type": "Image",
+        "config": {
+          "label": "Image \"Imprint\" (16:9)",
+          "constraint": {},
+          "thumbnails": []
+        }
+      }
+    }
+  }
+}

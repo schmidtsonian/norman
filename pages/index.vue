@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-18">
+      <div class="col-16 offset-1 col-lg-18 offset-lg-0">
         <div v-for="(project, i) in document.results" :key="`project-${i}`">
           <router-link
             class="link"

@@ -1,3 +1,5 @@
+import smConfig from './sm.json'
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -43,20 +45,32 @@ export default {
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
     '@nuxtjs/style-resources',
-    '@nuxtjs/prismic'
+    [
+      '@nuxtjs/prismic', {
+        endpoint: smConfig.apiEndpoint || ''
+      }
+    ]
   ],
+  // router: {
+  //   extendRoutes (routes, resolve) {
+  //     routes.push({
+  //       name: 'custom',
+  //       path: 'projects',
+  //       component: resolve(__dirname, 'pages/projects_archive.vue')
+  //     })
+  //   }
+  // },
   prismic: {
     endpoint: 'https://norman-porfolio.cdn.prismic.io/api/v2',
-    modern: true
-    // apiOptions: {
-    //   // example resolving documents with type `page` to `/:uid`
-    //   routes: [
-    //     {
-    //       type: 'projects',
-    //       path: 'projects/:uid'
-    //     }
-    //   ]
-    // }
+    modern: true,
+    apiOptions: {
+      // routes: [
+      //   {
+      //     type: 'projects_archive',
+      //     path: '/project'
+      //   }
+      // ]
+    }
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules

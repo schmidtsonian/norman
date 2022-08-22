@@ -1,0 +1,55 @@
+{
+  "id": "generic",
+  "label": "Generic",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "headline": {
+        "type": "Text",
+        "config": {
+          "label": "Headline",
+          "placeholder": ""
+        }
+      },
+      "description": {
+        "type": "Text",
+        "config": {
+          "label": "Description",
+          "placeholder": ""
+        }
+      },
+      "big_text_vertical": {
+        "type": "Text",
+        "config": {
+          "label": "Big text vertical",
+          "placeholder": ""
+        }
+      },
+      "content": {
+        "type": "Group",
+        "config": {
+          "label": "Content",
+          "fields": {
+            "the_content": {
+              "type": "StructuredText",
+              "config": {
+                "label": "The content",
+                "placeholder": "",
+                "allowTargetBlank": true,
+                "multi": "paragraph,heading2,heading3,em,list-item,o-list-item,strong"
+              }
+            }
+          }
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {}
+        }
+      }
+    }
+  }
+}

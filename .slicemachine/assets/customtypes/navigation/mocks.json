@@ -1,0 +1,67 @@
+{
+  "id": "mock-doc-id",
+  "url": null,
+  "type": "navigation",
+  "href": null,
+  "tags": [],
+  "first_publication_date": "1970-01-01T00:00:01+0000",
+  "last_publication_date": "1970-01-01T00:00:01+0000",
+  "slugs": [],
+  "linked_documents": [],
+  "lang": "en-us",
+  "alternate_languages": [],
+  "data": {
+    "menu_metas": [
+      {
+        "link": {
+          "link_type": "Web",
+          "url": "http://twitter.com"
+        },
+        "title": "dig"
+      }
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Aliqua anim voluptate non nisi et velit. Tempor ad laborum incididunt ad sunt elit laboris laboris cillum. Dolor amet magna ullamco commodo sunt qui reprehenderit.",
+        "spans": []
+      }
+    ],
+    "image_default": {
+      "dimensions": {
+        "width": 900,
+        "height": 500
+      },
+      "alt": null,
+      "copyright": null,
+      "url": "https://images.unsplash.com/photo-1606248897732-2c5ffe759c04"
+    },
+    "image_projects": {
+      "dimensions": {
+        "width": 900,
+        "height": 500
+      },
+      "alt": null,
+      "copyright": null,
+      "url": "https://images.unsplash.com/photo-1504198070170-4ca53bb1c1fa"
+    },
+    "image_about": {
+      "dimensions": {
+        "width": 900,
+        "height": 500
+      },
+      "alt": null,
+      "copyright": null,
+      "url": "https://images.unsplash.com/photo-1576662712957-9c79ae1280f8"
+    },
+    "image_imprint": {
+      "dimensions": {
+        "width": 900,
+        "height": 500
+      },
+      "alt": null,
+      "copyright": null,
+      "url": "https://images.unsplash.com/photo-1587614295999-6c1c13675117"
+    }
+  }
+}

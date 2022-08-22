@@ -1,0 +1,54 @@
+{
+  "id": "projects_archive",
+  "label": "Projects Archive",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID",
+          "placeholder": ""
+        }
+      },
+      "projects": {
+        "type": "Group",
+        "config": {
+          "label": "Projects",
+          "fields": {
+            "title": {
+              "type": "Text",
+              "config": {
+                "label": "Title",
+                "placeholder": ""
+              }
+            },
+            "project": {
+              "type": "Link",
+              "config": {
+                "label": "Project",
+                "select": "document",
+                "customtypes": [
+                  "projects"
+                ]
+              }
+            },
+            "background_color": {
+              "type": "Select",
+              "config": {
+                "label": "Background color",
+                "placeholder": "",
+                "options": [
+                  "White",
+                  "Black"
+                ],
+                "default_value": "White"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
