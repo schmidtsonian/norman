@@ -64,12 +64,12 @@ export default {
     endpoint: 'https://norman-porfolio.cdn.prismic.io/api/v2',
     modern: true,
     apiOptions: {
-      // routes: [
-      //   {
-      //     type: 'projects_archive',
-      //     path: '/project'
-      //   }
-      // ]
+      routes: [
+        {
+          type: 'projects_archive',
+          path: '/project'
+        }
+      ]
     }
   },
 
