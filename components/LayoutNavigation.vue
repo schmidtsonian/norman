@@ -6,13 +6,25 @@
         <div class="row">
           <div class="col-16 offset-1 col-lg-8 offset-lg-2 col-xl-9 offset-xl-2 offset-xl2-3">
             <nav class="l-nav__main">
-              <router-link :to="`/projects/`" @mouseleave.native="imageIndexActive = 0" @mouseenter.native="imageIndexActive = 1">
+              <router-link
+                :to="`/projects/`"
+                @mouseenter.native="imageIndexActive = 1, $nuxt.$emit('hoverEnter', 'VIEW')"
+                @mouseleave.native="imageIndexActive = 0, $nuxt.$emit('hoverLeave')"
+              >
                 Projects
               </router-link>
-              <router-link :to="`/about/`" @mouseleave.native="imageIndexActive = 0" @mouseenter.native="imageIndexActive = 2">
+              <router-link
+                :to="`/about/`"
+                @mouseenter.native="imageIndexActive = 2, $nuxt.$emit('hoverEnter', 'VIEW')"
+                @mouseleave.native="imageIndexActive = 0, $nuxt.$emit('hoverLeave')"
+              >
                 About
               </router-link>
-              <router-link :to="`/imprint/`" @mouseleave.native="imageIndexActive = 0" @mouseenter.native="imageIndexActive = 3">
+              <router-link
+                :to="`/imprint/`"
+                @mouseenter.native="imageIndexActive = 3, $nuxt.$emit('hoverEnter', 'VIEW')"
+                @mouseleave.native="imageIndexActive = 0, $nuxt.$emit('hoverLeave')"
+              >
                 Imprint
               </router-link>
             </nav>
@@ -22,9 +34,7 @@
             <div class="row">
               <div class="col-18 col-xl-16">
                 <div class="l-nav__data">
-                  <div class="h-p">
-                    <p>Voluptate esse ea et do commodo proident ea consectetur elit. Aliquip excepteur tempor elit et minim mollit sit adipisicing sit aliquip culpa. Duis commodo sit nisi aliqua laborum dolor. Aliquip ullamco incididunt non id ex consequat eu excepteur.</p>
-                  </div>
+                  <PrismicRichText v-if="$store.state.navigation.content" :field="$store.state.navigation.content" class="h-p" />
                 </div>
               </div>
               <div class="col-10 col-lg-18">

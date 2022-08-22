@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="main" @mousemove="onMouseMove" @resize="setBoundaries">
     <header class="l-header">
       <router-link
         to="/"
@@ -33,36 +33,34 @@
     >
       <span ref="btMenuText"> {{ isMenuActive ? 'CLOSE' : 'MENU' }} </span>
     </button>
-    <main ref="mainWrapper" class="l-main" @mousemove="onMouseMove" @resize="setBoundaries">
-      <LayoutNavigation ref="nav" :class="`${isMenuActive ? 'is-active' : ''}`" />
-
+    <LayoutNavigation ref="nav" :class="`${isMenuActive ? 'is-active' : ''}`" />
+    <main ref="mainWrapper" class="l-main">
       <div ref="mainContainer" class="l-container">
         <Nuxt />
       </div>
-
-      <CornerCmyk class="l-corner--left-top" />
-      <CornerCmyk class="l-corner--right-top" />
-      <CornerCmyk class="l-corner--left-bottom" />
-      <CornerCmyk class="l-corner--right-bottom" />
-
-      <CircleXy class="l-circle-xy l-circle-xy--left" />
-      <CircleXy class="l-circle-xy l-circle-xy--right" />
-      <span ref="cursor" class="l-cursor" :class="`${deviceType} ${isCursorActive ? 'is-active' : ''} ${isHalfX ? 'is-half-x' : ''}`">
-        <span class="l-cursor__circle l-cursor__circle--outter">
-          <span ref="cursorCircle" class="l-cursor__circle l-cursor__circle--inner">
-            <svg class="l-cursor__arrow" x="0px" y="0px" viewBox="0 0 15.4 15.4">
-              <path d="M1,15.4L11.1,5.3c1.2-1.2,1.6-2.2,2.7-3.3l0.1,0.1c-0.9,2.2-1,4.7-0.4,7L15.2,9c-0.9-2.7-0.8-5.7,0.2-8.4 L14.8,0c-2.7,1-5.6,1.1-8.4,0.2L6.3,2c2.3,0.6,4.8,0.5,7-0.4l0.1,0.1c-1.1,1.1-2.1,1.5-3.3,2.7L0,14.4L1,15.4z" />
-            </svg>
-          </span>
-        </span>
-
-      </span>
-      <span ref="tooltip" class="l-tooltip" :class="`${deviceType}`">
-        <span class="l-tooltip__text">
-          {{ textCursor }}
-        </span>
-      </span>
     </main>
+    <CornerCmyk class="l-corner--left-top" />
+    <CornerCmyk class="l-corner--right-top" />
+    <CornerCmyk class="l-corner--left-bottom" />
+    <CornerCmyk class="l-corner--right-bottom" />
+
+    <CircleXy class="l-circle-xy l-circle-xy--left" />
+    <CircleXy class="l-circle-xy l-circle-xy--right" />
+    <span ref="cursor" class="l-cursor" :class="`${deviceType} ${isCursorActive ? 'is-active' : ''} ${isHalfX ? 'is-half-x' : ''}`">
+      <span class="l-cursor__circle l-cursor__circle--outter">
+        <span ref="cursorCircle" class="l-cursor__circle l-cursor__circle--inner">
+          <svg class="l-cursor__arrow" x="0px" y="0px" viewBox="0 0 15.4 15.4">
+            <path d="M1,15.4L11.1,5.3c1.2-1.2,1.6-2.2,2.7-3.3l0.1,0.1c-0.9,2.2-1,4.7-0.4,7L15.2,9c-0.9-2.7-0.8-5.7,0.2-8.4 L14.8,0c-2.7,1-5.6,1.1-8.4,0.2L6.3,2c2.3,0.6,4.8,0.5,7-0.4l0.1,0.1c-1.1,1.1-2.1,1.5-3.3,2.7L0,14.4L1,15.4z" />
+          </svg>
+        </span>
+      </span>
+
+    </span>
+    <span ref="tooltip" class="l-tooltip" :class="`${deviceType}`">
+      <span class="l-tooltip__text">
+        {{ textCursor }}
+      </span>
+    </span>
     <footer class="l-footer">
       <h4 class="l-footer__logo h-font-logo">
         .Design
@@ -139,7 +137,7 @@ export default {
       onUpdate: (d) => {
         const velocity = Math.abs(d.getVelocity()) * 0.01
         const ampliation = Math.abs(d.getVelocity()) * 0.002
-        gsap.to(this.$refs.mainWrapper, {
+        gsap.to(this.$refs.main, {
           duration: 0.75,
           ease: Circ.easeOut,
           '--c': `${gsap.utils.clamp(0, 6, velocity)}px`,
@@ -492,8 +490,9 @@ export default {
 
   .l-cursor,
   .l-tooltip {
-    :not(.mouseonly) {
-      display: none !important;
+    display: none !important;
+    &.mouseonly {
+      display: block !important;
     }
   }
 
