@@ -37,7 +37,7 @@
                   <PrismicRichText v-if="$store.state.navigation.content" :field="$store.state.navigation.content" class="h-p" />
                 </div>
               </div>
-              <div class="col-10 col-lg-18">
+              <div class="col-10 offset-4 col-lg-18 offset-lg-0">
                 <picture class="l-nav__image">
                   <PrismicImage ref="image" :class="`${imageIndexActive === 0 ? 'is-active' : ''}`" :field="$store.state.navigation.image_default" />
                   <PrismicImage ref="image" :class="`${imageIndexActive === 1 ? 'is-active' : ''}`" :field="$store.state.navigation.image_projects" />
@@ -105,6 +105,7 @@ export default {
 
 .l-nav__wrapper {
   position: absolute;
+  text-align: center;
   color: $color--white;
   left: 0;
   top: 0;
@@ -190,6 +191,11 @@ export default {
   }
 }
 
+@include breakpoint-up(bp(lg)) {
+  .l-nav__wrapper {
+    text-align: left;
+  }
+}
 @include breakpoint-up(bp(xl)) {
   .l-nav__main {
     font-size: rem(120);

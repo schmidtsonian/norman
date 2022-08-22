@@ -171,8 +171,8 @@ export default {
       }
     })
 
-    const setX = gsap.quickSetter(this.$refs.mainWrapper, '--px', 'px')
-    const setY = gsap.quickSetter(this.$refs.mainWrapper, '--py', 'px')
+    const setX = gsap.quickSetter(this.$refs.main, '--px', 'px')
+    const setY = gsap.quickSetter(this.$refs.main, '--py', 'px')
 
     const setCircleX = gsap.quickSetter(this.$refs.cursor, 'x', 'px')
     const setCircleY = gsap.quickSetter(this.$refs.cursor, 'y', 'px')

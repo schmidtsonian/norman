@@ -1,16 +1,18 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-16 offset-1 col-lg-18 offset-lg-0">
-        <div v-for="(project, i) in document.results" :key="`project-${i}`">
-          <router-link
-            class="link"
-            :to="`/projects/${project.uid}`"
-            @mouseleave.native="onMouseLeave"
-            @mouseenter.native="onMousEenter"
-          >
-            {{ project.data.headline }}
-          </router-link>
+  <div class="t-home">
+    <div class="container">
+      <div class="row">
+        <div class="col-14 offset-2 ">
+          <div v-for="(project, i) in document.results" :key="`project-${i}`">
+            <router-link
+              class="link"
+              :to="`/projects/${project.uid}`"
+              @mouseenter.native="$nuxt.$emit('hoverEnter', `VIEW :: ${project.data.headline} ::`)"
+              @mouseleave.native="$nuxt.$emit('hoverLeave')"
+            >
+              {{ project.data.headline }}
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -47,20 +49,30 @@ export default {
   mounted () {
     ScrollTrigger.refresh()
     ScrollSmoother.refresh()
-  },
-  methods: {
-    onMousEenter () {
-      this.$nuxt.$emit('hoverEnter', 'VIEW')
-    },
-    onMouseLeave () {
-      this.$nuxt.$emit('hoverLeave')
-    }
   }
 }
 </script>
 
 <style lang="scss">
+  .t-home {
+    padding-top: rem(40);
+    padding-bottom: rem(40);
+  }
   .link {
     display: block;
+  }
+
+  @include breakpoint-up(bp(md)) {
+    .t-home {
+      padding-top: rem(140);
+      padding-bottom: rem(140);
+    }
+  }
+
+  @include breakpoint-up(bp(xl2)) {
+    .t-home {
+      padding-top: rem(240);
+      padding-bottom: rem(240);
+    }
   }
 </style>

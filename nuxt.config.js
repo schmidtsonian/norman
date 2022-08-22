@@ -95,12 +95,15 @@ export default {
     },
     afterEnter (el) {
       console.log('afterEnter Leave')
+      this.$nuxt.$emit('hoverLeave')
     },
     beforeLeave (el) {
       console.log('beforeLeave Leave')
+      this.$nuxt.$emit('hoverLeave')
     },
     afterLeave (el) {
       console.log('afterLeave Leave')
+      this.$nuxt.$emit('hoverLeave')
     },
     leave (el, done) {
       console.log(' leave')
